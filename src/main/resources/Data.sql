@@ -29,5 +29,6 @@ CREATE TABLE invoice (
                              ON UPDATE CASCADE
 );
 INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title001","Travel", now(), "Traveled to Stockholm",1000,1);
-INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title002","Others", now(), "Traveled to Stockholm",2000,1);
-INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title003","Travel", now(), "Traveled to Stockholm",5000,1);
+INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title002","Others", now(), "Traveled from Stockholm",2000,1);
+INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title003","Travel", now(), "Traveled to Gothenburg",5000,1);
+INSERT INTO invoice (title,category, invoicedate, description,amount,employeeid) VALUES ("Title004","Travel", now(), "Traveled from Gothenburg",5000,1);
