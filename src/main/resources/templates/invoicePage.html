@@ -1,0 +1,50 @@
+<form action="auth/logout" method="POST">
+  <button type="submit">Logout</button>
+</form>
+
+<form >
+  <label>Title</label>
+  <input type="text" name="title" />
+
+  <br>
+  <label>Invoice Date</label>
+  <input type="date" name="invoicedate" />
+  <br>
+  <label>Description</label>
+  <input type="text" name="description" />
+  <br>
+  <label>Category</label>
+  <select id="category" name="category" >
+    <option value="Travel">Travel</option>
+    <option value="Lunch_Meetings">Lunch Meetings</option>
+    <option value="Overtime_Work">Overtime Work</option>
+    <option value="Others">Others</option>
+  </select>
+  <br>
+  <label>Amount</label>
+  <input type="text" name="amount" />
+  <br>
+  <button type="submit">Add item</button>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Invoice Date</th>
+    <th>Description</th>
+    <th>Category</th>
+    <th>Amount</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="item: ${items}">
+    <td th:text="${item.title}" />
+    <td th:text="${item.invoicedate}" />
+    <td th:text="${item.description}" />
+    <td th:text="${item.category}" />
+    <td th:text="${item.amount}" />
+  </tr>
+  </tbody>
+</table>
