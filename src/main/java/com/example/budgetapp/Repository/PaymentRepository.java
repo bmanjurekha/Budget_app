@@ -36,6 +36,7 @@ public class PaymentRepository {
             System.out.println(username);
             do {
                 Payment item = new Payment();
+                item.setId(rs.getInt("id"));
                 item.setTitle(rs.getString("title"));
                 item.setCategory(rs.getString("category"));
                 item.setInvoicedate(rs.getDate("invoicedate"));
@@ -51,5 +52,53 @@ public class PaymentRepository {
         }
 
         return list;
+    }
+
+    public void addItem(String username, Payment item) {
+        Connection conn = db.getConnection();
+        String sql = "SELECT id FROM employee WHERE name=?";
+
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+            int employeeId;
+
+            if(!rs.next()) {
+                employeeId = 0;
+            } else {
+                employeeId = rs.getInt("id");
+            }
+
+            sql = "INSERT INTO invoice (title, category, invoicedate,description,amount,employeeid)" +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, item.getTitle());
+            pstmt.setString(2, item.getCategory());
+            pstmt.setDate(3, item.getInvoicedate());
+            pstmt.setString(4, item.getDescription());
+            pstmt.setInt(5, item.getAmount());
+            pstmt.setInt(6, employeeId);
+
+            pstmt.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deleteItem(int id)
+    {
+        Connection conn = db.getConnection();
+        String sql = "DELETE FROM invoice WHERE id=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            pstmt.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

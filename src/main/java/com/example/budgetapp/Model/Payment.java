@@ -3,12 +3,14 @@ package com.example.budgetapp.Model;
 import java.sql.Date;
 
 public class Payment {
+    private  int id;
     private String title;
     private Date invoicedate;
     private String description;
     private String category;
     private int amount;
 
+    public int getId(){return id;}
     public String getTitle() {
         return title;
     }
@@ -47,4 +49,5 @@ public class Payment {
     public void setDescription(String description) {
         this.description = description;
     }
+    public void setId(int id){this.id = id;}
 }

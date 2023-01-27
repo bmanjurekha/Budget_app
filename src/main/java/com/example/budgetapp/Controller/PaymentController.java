@@ -3,14 +3,14 @@ package com.example.budgetapp.Controller;
 import com.example.budgetapp.Exception.InvalidPassword;
 import com.example.budgetapp.Exception.UserNameNotFound;
 import com.example.budgetapp.Model.Invoice;
+import com.example.budgetapp.Model.Payment;
 import com.example.budgetapp.Services.PaymentService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import java.io.IOException;
 @Controller
 @RequestMapping("/invoice")
@@ -44,6 +44,21 @@ public class PaymentController {
         else {
             throw new UserNameNotFound("Invalid Employee Name", username);
         }
+    }
+    @PostMapping()
+    public String addItem(HttpSession session, @ModelAttribute Payment paymentItem) {
+        String username = (String) session.getAttribute("username");
+
+        paymentService.addPaymentItem(username, paymentItem);
+
+        return "redirect:/invoice";
+    }
+    @DeleteMapping
+    public String deleteItem(HttpSession session, int id)
+    {
+        String username = (String) session.getAttribute("username");
+        paymentService.deletePaymentItem(id);
+        return "redirect:/invoice";
     }
 
 }
