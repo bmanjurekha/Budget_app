@@ -30,5 +30,8 @@ public class PaymentService {
 
         paymentRepository.deleteItem(id);
     }
+    public  Invoice editPaymentItem(String username,int id){
+       return paymentRepository.editItem(username,id);
+    }
 
 }

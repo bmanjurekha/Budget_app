@@ -2,19 +2,21 @@
   <button type="submit">Logout</button>
 </form>
 
-<form action="invoice" method="POST">
+<form action="invoice" th:each="dpymnt:${dpayment.getInvoiceItems()}"  method="POST">
+  <label>ID</label>
+  <input type="text" th:value="${dpymnt.id}" hidden="hidden" name="ID" />
   <label>Title</label>
-  <input type="text" name="title" />
+  <input type="text" th:value="${dpymnt.title}" name="title" />
 
   <br>
   <label>Invoice Date</label>
   <input type="date" name="invoicedate" />
   <br>
   <label>Description</label>
-  <input type="text" name="description" />
+  <input type="text" th:value="${dpymnt.description}" name="description" />
   <br>
   <label>Category</label>
-  <select id="category" name="category" >
+  <select id="category"  name="category" >
     <option value="Travel">Travel</option>
     <option value="Lunch_Meetings">Lunch Meetings</option>
     <option value="Overtime_Work">Overtime Work</option>
@@ -22,7 +24,7 @@
   </select>
   <br>
   <label>Amount</label>
-  <input type="text" name="amount" />
+  <input type="text" th:value="${dpymnt.amount}" name="amount" />
   <br>
   <button type="submit">Add item</button>
 </form>
@@ -49,6 +51,9 @@
     <td th:text="${item.amount}" />
     <td>
       <a  th:href="|/invoice/delete?id=${item.id}|">Delete</a>
+    </td>
+    <td>
+      <a  th:href="|/invoice/edit?id=${item.id}|">Edit</a>
     </td>
   </tr>
   </tbody>

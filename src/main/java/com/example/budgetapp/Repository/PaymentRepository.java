@@ -101,4 +101,33 @@ public class PaymentRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public Invoice editItem(String username, int id)
+    {
+        Connection conn = db.getConnection();
+        Invoice lstitem = new Invoice(username);
+        String sql = "SELECT * FROM invoice WHERE id=?";
+        try {
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if(!rs.next()) { return null; } //guardian clause
+
+
+            do {
+                Payment item = new Payment();
+                item.setId(id);
+                item.setTitle(rs.getString("title"));
+                item.setCategory(rs.getString("category"));
+                item.setInvoicedate(rs.getDate("invoicedate"));
+                item.setAmount(rs.getInt("amount"));
+                item.setDescription(rs.getString("description"));
+                lstitem.getInvoiceItems().add(item);
+            } while(rs.next());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lstitem;
+    }
 }
