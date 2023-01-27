@@ -72,7 +72,7 @@ public class PaymentController {
         String username = (String) session.getAttribute("username");
         Invoice editinvoice = paymentService.editPaymentItem(username,id);
         if(editinvoice!=null) {
-           System.out.println("isEmpty - "+ editinvoice.getInvoiceItems().isEmpty());
+            System.out.println("isEmpty - "+ editinvoice.getInvoiceItems().isEmpty());
             System.out.println("category - "+ editinvoice.getInvoiceItems().get(0).getCategory());
             System.out.println("title - "+ editinvoice.getInvoiceItems().get(0).getTitle());
             System.out.println("invoicedate - "+ editinvoice.getInvoiceItems().get(0).getInvoicedate());
@@ -81,18 +81,10 @@ public class PaymentController {
             System.out.println("id - "+ editinvoice.getInvoiceItems().get(0).getId());
 
 
-           Payment pay = new Payment();
-           pay.setId(editinvoice.getInvoiceItems().get(0).getId());
-           pay.setInvoicedate(editinvoice.getInvoiceItems().get(0).getInvoicedate());
-            pay.setDescription(editinvoice.getInvoiceItems().get(0).getDescription());
-            pay.setCategory(editinvoice.getInvoiceItems().get(0).getCategory());
-            pay.setTitle(editinvoice.getInvoiceItems().get(0).getTitle());
-            pay.setAmount(editinvoice.getInvoiceItems().get(0).getAmount());
-           Invoice in = new Invoice(username);
-           in.getInvoiceItems().add(pay);
-           model.addAttribute("dpayment",in);
-           session.setAttribute("spayment", in);
-       }
+            model.addAttribute("dpayment",editinvoice);
+            session.setAttribute("spayment", editinvoice);
+
+        }
         return "invoicePage";
     }
 
