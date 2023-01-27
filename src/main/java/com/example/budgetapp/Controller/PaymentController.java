@@ -93,7 +93,7 @@ public class PaymentController {
            model.addAttribute("dpayment",in);
            session.setAttribute("spayment", in);
        }
-        return "/invoicePage";
+        return "invoicePage";
     }
 
 }
